@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.example.mynotes.Models.DaoSession;
 import com.example.mynotes.Models.Note;
+import com.example.mynotes.Models.NoteColor;
+import com.example.mynotes.Models.NoteColorDao;
 import com.example.mynotes.Models.NoteDao;
 import com.example.mynotes.Models.User;
 import com.example.mynotes.Models.UserDao;
@@ -17,12 +19,15 @@ public class LocalRepository implements MyNotesRepository {
     private NoteDao noteDao;
     private UserDao userDao;
     private User loggedInUser;
+    private NoteColorDao noteColorDao;
     private static LocalRepository instance;
 
     private LocalRepository(Activity activity) {
         daoSession = ((MyNoteApp)activity.getApplication()).getDaoSession();
         noteDao = daoSession.getNoteDao();
         userDao = daoSession.getUserDao();
+        noteColorDao = daoSession.getNoteColorDao();
+        seedNoteColorIfNeeded();
     }
 
     public static LocalRepository getInstance(Activity activity) {
@@ -30,6 +35,26 @@ public class LocalRepository implements MyNotesRepository {
             instance = new LocalRepository(activity);
         }
         return instance;
+    }
+
+    private void seedNoteColorIfNeeded() {
+        List<NoteColor> noteColors = getNoteColors();
+        if (noteColors == null || noteColors.isEmpty()) {
+            NoteColor noteColor1 = new NoteColor();
+            noteColor1.setColorCode("#ff0000");
+            NoteColor noteColor2 = new NoteColor();
+            noteColor2.setColorCode("#00ff00");
+            NoteColor noteColor3 = new NoteColor();
+            noteColor3.setColorCode("#0000ff");
+            noteColorDao.insert(noteColor1);
+            noteColorDao.insert(noteColor2);
+            noteColorDao.insert(noteColor3);
+        }
+    }
+
+    @Override
+    public List<NoteColor> getNoteColors() {
+        return noteColorDao.getSession().loadAll(NoteColor.class);
     }
 
     @Override
@@ -46,6 +71,7 @@ public class LocalRepository implements MyNotesRepository {
     @Override
     public void deleteNote(long id) {
         Note note = getNoteById(id);
+        loggedInUser.getNotes().remove(note);
         noteDao.delete(note);
     }
 

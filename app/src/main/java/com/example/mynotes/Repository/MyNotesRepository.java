@@ -1,6 +1,7 @@
 package com.example.mynotes.Repository;
 
 import com.example.mynotes.Models.Note;
+import com.example.mynotes.Models.NoteColor;
 import com.example.mynotes.Models.User;
 import com.example.mynotes.callbacks.LogInCallback;
 
@@ -13,6 +14,7 @@ public interface MyNotesRepository {
     Note getNoteById(long id);
     List<Note> getAllNotes();
     long getLoggedInUserId();
+    List<NoteColor> getNoteColors();
 
     void register(User user);
     void logIn(String userName, String password, LogInCallback logInCallback);

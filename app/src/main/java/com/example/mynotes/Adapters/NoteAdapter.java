@@ -1,4 +1,4 @@
-package com.example.mynotes;
+package com.example.mynotes.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.Models.Note;
+import com.example.mynotes.R;
 
 import java.util.List;
 

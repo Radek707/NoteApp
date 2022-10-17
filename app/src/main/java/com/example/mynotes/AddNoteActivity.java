@@ -11,8 +11,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mynotes.Models.Note;
+import com.example.mynotes.Models.NoteColor;
 import com.example.mynotes.Repository.MyNotesRepository;
 import com.example.mynotes.Repository.RepositoryProvider;
+
+import java.util.List;
 
 public class AddNoteActivity extends AppCompatActivity {
 
@@ -49,6 +52,9 @@ public class AddNoteActivity extends AppCompatActivity {
         } else {
             deleteButton.setVisibility(View.INVISIBLE);
         }
+
+        List<NoteColor> noteColors = myNotesRepository.getNoteColors();
+        Toast.makeText(this, "" + noteColors.size(), Toast.LENGTH_SHORT).show();
     }
 
     private void updateUI(Note note) {
