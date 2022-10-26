@@ -1,14 +1,14 @@
-package com.example.mynotes.Repository;
+package com.example.mynotes.repository;
 
 import android.app.Activity;
 
-import com.example.mynotes.Models.DaoSession;
-import com.example.mynotes.Models.Note;
-import com.example.mynotes.Models.NoteColor;
-import com.example.mynotes.Models.NoteColorDao;
-import com.example.mynotes.Models.NoteDao;
-import com.example.mynotes.Models.User;
-import com.example.mynotes.Models.UserDao;
+import com.example.mynotes.models.DaoSession;
+import com.example.mynotes.models.Note;
+import com.example.mynotes.models.NoteColor;
+import com.example.mynotes.models.NoteColorDao;
+import com.example.mynotes.models.NoteDao;
+import com.example.mynotes.models.User;
+import com.example.mynotes.models.UserDao;
 import com.example.mynotes.MyNoteApp;
 import com.example.mynotes.callbacks.LogInCallback;
 

@@ -1,4 +1,4 @@
-package com.example.mynotes.Models;
+package com.example.mynotes.models;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;

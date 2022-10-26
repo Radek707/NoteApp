@@ -1,8 +1,8 @@
-package com.example.mynotes.Repository;
+package com.example.mynotes.repository;
 
-import com.example.mynotes.Models.Note;
-import com.example.mynotes.Models.NoteColor;
-import com.example.mynotes.Models.User;
+import com.example.mynotes.models.Note;
+import com.example.mynotes.models.NoteColor;
+import com.example.mynotes.models.User;
 import com.example.mynotes.callbacks.LogInCallback;
 
 import java.util.List;

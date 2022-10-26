@@ -1,4 +1,4 @@
-package com.example.mynotes.Repository;
+package com.example.mynotes.repository;
 
 import android.app.Activity;
 

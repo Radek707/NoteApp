@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.example.mynotes.Models.User;
-import com.example.mynotes.Repository.MyNotesRepository;
-import com.example.mynotes.Repository.RepositoryProvider;
+import com.example.mynotes.models.User;
+import com.example.mynotes.repository.MyNotesRepository;
+import com.example.mynotes.repository.RepositoryProvider;
 
 public class RegisterActivity extends AppCompatActivity {
 

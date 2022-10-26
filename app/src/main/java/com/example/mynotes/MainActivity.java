@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.mynotes.Adapters.NoteAdapter;
-import com.example.mynotes.Models.Note;
-import com.example.mynotes.Repository.MyNotesRepository;
-import com.example.mynotes.Repository.RepositoryProvider;
+import com.example.mynotes.adapters.NoteAdapter;
+import com.example.mynotes.models.Note;
+import com.example.mynotes.repository.MyNotesRepository;
+import com.example.mynotes.repository.RepositoryProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;

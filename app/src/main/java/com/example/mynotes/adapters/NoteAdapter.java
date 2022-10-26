@@ -1,6 +1,7 @@
-package com.example.mynotes.Adapters;
+package com.example.mynotes.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mynotes.Models.Note;
+import com.example.mynotes.models.Note;
 import com.example.mynotes.R;
 
 import java.util.List;
@@ -44,6 +45,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         } else {
             holder.archivedImageView.setVisibility(View.GONE);
         }
+        String colorCodeString = note.getColor().getColorCode();
+        holder.notesItemConstraintLayout.setBackgroundColor(Color.parseColor(colorCodeString));
     }
 
     @Override

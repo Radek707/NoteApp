@@ -10,11 +10,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.mynotes.Models.Note;
-import com.example.mynotes.Models.NoteColor;
-import com.example.mynotes.Repository.MyNotesRepository;
-import com.example.mynotes.Repository.RepositoryProvider;
+import com.example.mynotes.custom.ColorSelectorCustomView;
+import com.example.mynotes.models.Note;
+import com.example.mynotes.models.NoteColor;
+import com.example.mynotes.models.viewmodels.NoteColorSelectorViewModel;
+import com.example.mynotes.repository.MyNotesRepository;
+import com.example.mynotes.repository.RepositoryProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddNoteActivity extends AppCompatActivity {
@@ -25,6 +28,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private MyNotesRepository myNotesRepository;
     private CheckBox archivedCheckBox;
     private long noteId;
+    private ColorSelectorCustomView colorSelectorCustomView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +48,38 @@ public class AddNoteActivity extends AppCompatActivity {
         Intent intent = getIntent();
         noteId = intent.getLongExtra(TAG.NOTE_ID, NO_NOTE);
 
+        List<NoteColor> noteColors = myNotesRepository.getNoteColors();
+        List<NoteColorSelectorViewModel> colorViewModels = createColorViewModel(noteColors);
+
         if (noteId != NO_NOTE) {
             deleteButton.setOnClickListener(view -> deleteNote());
             deleteButton.setVisibility(View.VISIBLE);
             note = myNotesRepository.getNoteById(noteId);
+            selectNoteColor(note, colorViewModels);
             updateUI(note);
         } else {
             deleteButton.setVisibility(View.INVISIBLE);
         }
+        colorSelectorCustomView = findViewById(R.id.colorSelectorCustomView);
+        colorSelectorCustomView.initializeColors(colorViewModels);
+    }
 
-        List<NoteColor> noteColors = myNotesRepository.getNoteColors();
-        Toast.makeText(this, "" + noteColors.size(), Toast.LENGTH_SHORT).show();
+    private void selectNoteColor(Note note, List<NoteColorSelectorViewModel> colorViewModels) {
+        for (NoteColorSelectorViewModel colorViewModel:colorViewModels) {
+            if (note.getColorId() == colorViewModel.getNoteColor().getId()) {
+                colorViewModel.setSelected(true);
+                break;
+            }
+        }
+    }
+
+    private List<NoteColorSelectorViewModel> createColorViewModel(List<NoteColor> noteColors) {
+        List<NoteColorSelectorViewModel> list = new ArrayList<>();
+        for (NoteColor noteColor :  noteColors) {
+            list.add(new NoteColorSelectorViewModel(noteColor));
+        }
+
+        return list;
     }
 
     private void updateUI(Note note) {
@@ -74,6 +99,11 @@ public class AddNoteActivity extends AppCompatActivity {
     private void saveNote() {
         String title = titleEditText.getText().toString();
         String details = detailsEditText.getText().toString();
+        NoteColorSelectorViewModel selectedColor = colorSelectorCustomView.getSelectedColor();
+        if (selectedColor == null) {
+            Toast.makeText(this, "Pick a color for note", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (note == null) {
             note = new Note();
@@ -81,11 +111,13 @@ public class AddNoteActivity extends AppCompatActivity {
             note.setDetails(details);
             note.setArchived(archivedCheckBox.isChecked());
             note.setIdUser(myNotesRepository.getLoggedInUserId());
+            note.setColorId(selectedColor.getNoteColor().getId());
             myNotesRepository.addNote(note);
         } else  {
             note.setTitle(title);
             note.setDetails(details);
             note.setArchived(archivedCheckBox.isChecked());
+            note.setColorId(selectedColor.getNoteColor().getId());
             myNotesRepository.editNote(note);
         }
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();

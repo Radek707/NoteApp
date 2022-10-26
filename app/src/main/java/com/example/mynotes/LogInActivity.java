@@ -8,8 +8,8 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.mynotes.Repository.MyNotesRepository;
-import com.example.mynotes.Repository.RepositoryProvider;
+import com.example.mynotes.repository.MyNotesRepository;
+import com.example.mynotes.repository.RepositoryProvider;
 import com.example.mynotes.callbacks.LogInCallback;
 import com.google.android.material.textfield.TextInputLayout;
 

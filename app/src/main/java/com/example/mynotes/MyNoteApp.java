@@ -2,8 +2,8 @@ package com.example.mynotes;
 
 import android.app.Application;
 
-import com.example.mynotes.Models.DaoMaster;
-import com.example.mynotes.Models.DaoSession;
+import com.example.mynotes.models.DaoMaster;
+import com.example.mynotes.models.DaoSession;
 
 import org.greenrobot.greendao.database.Database;
 
