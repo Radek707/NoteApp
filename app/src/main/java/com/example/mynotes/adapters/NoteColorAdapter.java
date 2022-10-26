@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.R;
+import com.example.mynotes.callbacks.ColorSelectorCallback;
 import com.example.mynotes.models.viewmodels.NoteColorSelectorViewModel;
 
 import java.util.List;
@@ -19,10 +20,10 @@ import java.util.List;
 public class NoteColorAdapter extends RecyclerView.Adapter<NoteColorAdapter.NoteColorViewHolder>{
     private Context context;
     private List<NoteColorSelectorViewModel> noteColors;
-
     private NoteColorSelectorViewModel selectedColor;
+    private ColorSelectorCallback callback;
 
-    public NoteColorAdapter(Context context, List<NoteColorSelectorViewModel> noteColors) {
+    public NoteColorAdapter(Context context, List<NoteColorSelectorViewModel> noteColors, ColorSelectorCallback callback) {
         this.context = context;
         this.noteColors = noteColors;
         for (NoteColorSelectorViewModel colorViewModel : noteColors) {
@@ -30,6 +31,7 @@ public class NoteColorAdapter extends RecyclerView.Adapter<NoteColorAdapter.Note
                 selectedColor = colorViewModel;
             }
         }
+        this.callback = callback;
     }
 
     public NoteColorSelectorViewModel getSelectedColor() {
@@ -64,6 +66,9 @@ public class NoteColorAdapter extends RecyclerView.Adapter<NoteColorAdapter.Note
     }
 
     private void selectNoteColor(NoteColorSelectorViewModel noteColorSelectorViewModel) {
+        if(callback != null) {
+            callback.onSelectColor(noteColorSelectorViewModel.getNoteColor());
+        }
         if (selectedColor != null) {
             selectedColor.setSelected(false);
         }

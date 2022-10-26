@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.R;
 import com.example.mynotes.adapters.NoteColorAdapter;
+import com.example.mynotes.callbacks.ColorSelectorCallback;
 import com.example.mynotes.models.viewmodels.NoteColorSelectorViewModel;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class ColorSelectorCustomView extends FrameLayout {
     private RecyclerView colorSelectorRecyclerView;
     private TextView labelTextView;
     private NoteColorAdapter noteColorAdapter;
+    private ColorSelectorCallback callback;
 
     public ColorSelectorCustomView(@NonNull Context context) {
         super(context);
@@ -50,6 +52,10 @@ public class ColorSelectorCustomView extends FrameLayout {
                 true);
     }
 
+    public void setCallback(ColorSelectorCallback callback) {
+        this.callback = callback;
+    }
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -58,7 +64,7 @@ public class ColorSelectorCustomView extends FrameLayout {
     }
 
     public void initializeColors(List<NoteColorSelectorViewModel> colorSelectorViewModels) {
-        noteColorAdapter = new NoteColorAdapter(getContext(), colorSelectorViewModels);
+        noteColorAdapter = new NoteColorAdapter(getContext(), colorSelectorViewModels, callback);
         colorSelectorRecyclerView.setAdapter(noteColorAdapter);
     }
 

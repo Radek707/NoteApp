@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mynotes.callbacks.ColorSelectorCallback;
 import com.example.mynotes.custom.ColorSelectorCustomView;
 import com.example.mynotes.models.Note;
 import com.example.mynotes.models.NoteColor;
@@ -20,7 +21,7 @@ import com.example.mynotes.repository.RepositoryProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNoteActivity extends AppCompatActivity {
+public class AddNoteActivity extends AppCompatActivity implements ColorSelectorCallback {
 
     public static final int NO_NOTE = -1;
     private Note note;
@@ -61,6 +62,7 @@ public class AddNoteActivity extends AppCompatActivity {
             deleteButton.setVisibility(View.INVISIBLE);
         }
         colorSelectorCustomView = findViewById(R.id.colorSelectorCustomView);
+        colorSelectorCustomView.setCallback(this);
         colorSelectorCustomView.initializeColors(colorViewModels);
     }
 
@@ -122,5 +124,10 @@ public class AddNoteActivity extends AppCompatActivity {
         }
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    @Override
+    public void onSelectColor(NoteColor noteColor) {
+        Toast.makeText(this, "Selected color" + noteColor.getColorCode(), Toast.LENGTH_SHORT).show();
     }
 }
